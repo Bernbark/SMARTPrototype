@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     int rowCount = 7;
     int rowCounter = 0;
-    int columnCount, weightCounter;
+    int columnCount, weightCounter, endValueCounter;
     int columnCounter = 0;
 
     Drawable image;
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         weightedValues = new double[7];
         initializeResults();
         table = (TableLayout)findViewById(R.id.table0);
+        endValueCounter = 0;
         columnCounter = 0;
         makeValues();
         makeRow();
@@ -118,15 +119,17 @@ public class MainActivity extends AppCompatActivity {
                     tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_dark_purple));
                     tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                     tv.setText(value);
+                    endValueCounter--;
                 }
                 else{
                     // Must take i-1 to get chart in order
-                    String tempText = Float.toString(endValues.get(i-1));
+                    String tempText = Float.toString(endValues.get(endValueCounter));
                     tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_light_purple));
                     tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                     tv.setText(tempText);
                 }
                 tr.addView(tv);
+                endValueCounter++;
                 columnCounter++;
             }
             rowCounter++;
