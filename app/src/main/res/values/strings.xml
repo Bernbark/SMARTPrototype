@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">SMARTPrototype</string>
+    <string name="pirates">Pirates</string>
+    <string name="ninjas">Ninjas</string>
+    <string-array name="planets_array">
+        <item>First View</item>
+        <item>Second view</item>
+        <item>Third view</item>
+
+    </string-array>
+    <string name="title_activity_question_form">Questionnaire</string>
+    <string name="large_text">
+        "Having a hard time making a decision?\n\n"
+
+        "This app's focus is to help you by applying weights to your decisions, and showing "
+        "you your best possible option. \n"
+        "Fill out this form and continue to the next step."
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="name_hint">"Your descriptors go here, up to 7"</string>
+    <string name="radio_choice_career">Career</string>
+    <string name="radio_choice_college">College</string>
+    <string name="radio_choice_residence">Residence</string>
+    <string name="career_frag_intro">This is where text will go for the career preset</string>
+    <string name="college_frag_intro">This is where text will go for the college preset</string>
+    <string name="residence_frag_intro">This is where text will go for the residence preset</string>
+    <string name="title_activity_question_form2">Rate Your Choices</string>
+    <string name="question_form_2_info">
+        "You must now rate, between 1 and 5, how you feel about one"
+        " choice over the other.\n\n"
+
+        "Carefully consider how much you prioritize the first option"
+        " over the second option\n" </string>
+    <string name="title_activity_question_form3">ScrollingActivity</string>
+    <string name="question_form_3_info">
+        "Now you must give up to 7 different options that you"
+        " are having a hard time choosing from.\n\n"
+    </string>
+    <string name="question_form_3_hint">"Your hard to make choices go here"</string>
+    <string name="title_activity_question_form4">ScrollingActivity</string>
+</resources>

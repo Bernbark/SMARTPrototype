@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/coordinator_layout"
+    android:layout_height="match_parent"
+    android:background="@drawable/cell_rectangle_black">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/firstLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <Button
+                    android:id="@+id/add_button0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <TableLayout
+                    android:id="@+id/table0"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:stretchColumns="*"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+                        style="@style/MyTheme">
+
+                        <TextView
+                            android:id="@+id/emptyCell0"
+                            style="@style/MyDefaultTextAppearance"
+                            android:background="@drawable/cell_rectangle_black"
+                            />
+
+                        <TextView
+                            android:id="@+id/column10"
+                            style="@style/MyDefaultTextAppearance"
+                            android:background="@drawable/cell_rectangle_light_purple"
+                            android:text="1st Header" />
+
+                        <TextView
+                            android:id="@+id/column20"
+                            style="@style/MyDefaultTextAppearance"
+                            android:background="@drawable/cell_rectangle_light_purple"
+                            android:text="2nd Header" />
+
+                        <TextView
+                            android:id="@+id/column30"
+                            style="@style/MyDefaultTextAppearance"
+                            android:background="@drawable/cell_rectangle_light_purple"
+                            android:text="2nd Header" />
+
+                        <TextView
+                            android:id="@+id/column40"
+                            style="@style/MyDefaultTextAppearance"
+                            android:background="@drawable/cell_rectangle_light_purple"
+                            android:text="4th Header" />
+
+                        <TextView
+                            android:id="@+id/column50"
+                            style="@style/MyDefaultTextAppearance"
+                            android:background="@drawable/cell_rectangle_light_purple"
+                            android:text="4th Header" />
+
+                        <TextView
+                            android:id="@+id/column60"
+                            style="@style/MyDefaultTextAppearance"
+                            android:background="@drawable/cell_rectangle_light_purple"
+                            android:text="4th Header" />
+                        <TextView
+                            android:id="@+id/column70"
+                            style="@style/MyDefaultTextAppearance"
+                            android:background="@drawable/cell_rectangle_light_purple"
+                            android:text="4th Header" />
+                    </TableRow>
+
+                </TableLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
