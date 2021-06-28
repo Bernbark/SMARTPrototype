@@ -87,6 +87,7 @@ public class QuestionForm4 extends AppCompatActivity {
                         Slider sd = (Slider) child; //create a Slider for each group
                         float value = sd.getValue(); // get the selected button
                         values.add(value);
+                        Log.e("questionForm4", "onClick: testing values "+ value );
                     }
                 }
                 goToChart();
@@ -99,7 +100,12 @@ public class QuestionForm4 extends AppCompatActivity {
         bundle.putStringArrayList("results",results);
         bundle.putStringArrayList("choices",choices);
         bundle.putStringArrayList("weights",weights);
-        bundle.putSerializable("values",values);
+        float[] array = new float[values.size()];
+
+        for (int i = 0; i < values.size(); i++) {
+            array[i] = values.get(i);
+        }
+        bundle.putFloatArray("values",array);
         chart.putExtras(bundle);
         startActivity(chart);
         finish();
@@ -137,7 +143,7 @@ public class QuestionForm4 extends AppCompatActivity {
                 tv.setText(questions.get(questionCounter));
                 questionCounter++;
                 params = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
-                grp.addView(tv,params);
+                layout.addView(tv,params);
             }
             //TODO figure out a good way to handle asking many questions with an expected response of 1-10,
             // possibly a slider?
@@ -148,10 +154,10 @@ public class QuestionForm4 extends AppCompatActivity {
                 slider.setValueTo(10);
                 slider.setStepSize(1);
                 slider.setValue(10);
-                grp.addView(slider);
+                layout.addView(slider);
             }
         }
-        layout.addView(grp);
+        //layout.addView(grp);
     }
 
     public void goBackProperly(){

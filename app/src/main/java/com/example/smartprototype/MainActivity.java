@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             R.id.column60,R.id.column70};
     ArrayList<TextView> textViews = new ArrayList<>();
     ArrayList<String> results, choices, weights;
-    ArrayList<Float> values;
+    ArrayList<Float> values, endValues;
 
 
     public static final String TAG = "MainActivity";
@@ -83,15 +83,19 @@ public class MainActivity extends AppCompatActivity {
             results = extras.getStringArrayList("results");
             choices = extras.getStringArrayList("choices");
             weights = extras.getStringArrayList("weights");
-            values = (ArrayList<Float>) extras.getSerializable("values");
+            float[] tempArray = extras.getFloatArray("values");
+            values = new ArrayList<>();
+            for (int j = 0; j < tempArray.length; j++) {
+                values.add(tempArray[j]);
+            }
         }
+        endValues = new ArrayList<>();
         weightedValues = new double[7];
         initializeResults();
-
         table = (TableLayout)findViewById(R.id.table0);
-        makeRow();
         columnCounter = 0;
         makeValues();
+        makeRow();
         addBtn = (Button) findViewById(R.id.add_button0);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(rowCounter < rowCount){
             TextView tv;
-            EditText et;
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
             for(int i = 0; i < rowCount+1; i++){
@@ -115,18 +118,15 @@ public class MainActivity extends AppCompatActivity {
                     tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_dark_purple));
                     tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                     tv.setText(value);
-                    tr.addView(tv);
                 }
                 else{
-                    et = new EditText(new ContextThemeWrapper(this,R.style.cell_style_light_purple));
-                    et.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-                    et.setBackground(image);
-                    et.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    et.setFilters(new InputFilter[]{ new InputFilterMinMax("1", "10")});
-                    et.focusSearch(View.FOCUS_RIGHT);
-                    tr.addView(et);
+                    // Must take i-1 to get chart in order
+                    String tempText = Float.toString(endValues.get(i-1));
+                    tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_light_purple));
+                    tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tv.setText(tempText);
                 }
-                Log.e(TAG, "update: value is "+value );
+                tr.addView(tv);
                 columnCounter++;
             }
             rowCounter++;
@@ -134,46 +134,6 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             showToast("You can't add anymore rows for this exercise");
-        }
-    }
-
-    //TODO hook up the second half of this, weights is the second half which needs to be hooked up with
-    // weightedValues, then divide each weightedValue by results.size() - 1 to get the real weight
-    private void makeValues(){
-        weightCounter = 0;
-        for(int j = 0; j < results.size(); j++){
-            for(int k = j + 1 ; k < results.size(); k++){
-                double weightedValue = Double.parseDouble(weights.get(weightCounter));
-                if(weightedValue == 5){
-                    weightedValue = 1;
-                }
-                else if(weightedValue == 4){
-                    weightedValue = 2;
-                }
-                else if(weightedValue == 2){
-                    weightedValue = 4;
-                }
-                else if(weightedValue == 1){
-                    weightedValue = 5;
-                }
-                else{
-                    weightedValue = 3;
-                }
-                weightedValues[k] += weightedValue;
-                weightCounter++;
-            }
-        }
-        weightCounter = 0;
-        for(int j = 0; j < results.size(); j++){
-            for(int k = j + 1 ; k < results.size(); k++){
-                double weightedValue = Double.parseDouble(weights.get(weightCounter));
-                weightedValues[j] += weightedValue;
-                weightCounter++;
-            }
-        }
-        for(int i = 0; i < weightedValues.length; i++){
-            weightedValues[i] = weightedValues[i]/(results.size()-1);
-            Log.e(TAG, "makeValues: weighted values " + weightedValues[i] );
         }
     }
 
@@ -205,8 +165,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
@@ -225,9 +183,64 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setTexts(){
-        for(int i = 0; i < textViews.size()-1; i++){
-
+    //TODO hook up the second half of this, weights is the second half which needs to be hooked up with
+    // weightedValues, then divide each weightedValue by results.size() - 1 to get the real weight
+    private void makeValues(){
+        weightCounter = 0;
+        // For each value in results
+        for(int j = 0; j < results.size(); j++){
+            // For each value in results, starting with the second value in weightedValues, we are
+            // starting by filling in the second half of the array first.
+            for(int k = j + 1 ; k < results.size(); k++){
+                // Get the weightedValue by parsing weights
+                double weightedValue = Double.parseDouble(weights.get(weightCounter));
+                // Depending on the result, it must be flipped
+                if(weightedValue == 5){
+                    weightedValue = 1;
+                }
+                else if(weightedValue == 4){
+                    weightedValue = 2;
+                }
+                else if(weightedValue == 2){
+                    weightedValue = 4;
+                }
+                else if(weightedValue == 1){
+                    weightedValue = 5;
+                }
+                else{
+                    weightedValue = 3;
+                }
+                weightedValues[k] += weightedValue;
+                weightCounter++;
+            }
+        }
+        weightCounter = 0;
+        // This fills in the first half of the array by using the original values from weights
+        // and notice the weightedValues[j] instead of weightedValues[j]. This directs the flow of
+        // information exactly how I need it2
+        for(int j = 0; j < results.size(); j++){
+            for(int k = j + 1 ; k < results.size(); k++){
+                double weightedValue = Double.parseDouble(weights.get(weightCounter));
+                weightedValues[j] += weightedValue;
+                weightCounter++;
+            }
+        }
+        // Here we take those final results and make them equal to themselves divided by the amount of
+        // attributes that the current attribute is being compared against
+        for(int i = 0; i < weightedValues.length; i++){
+            weightedValues[i] = weightedValues[i]/(results.size()-1);
+            Log.e(TAG, "makeValues: weighted values " + weightedValues[i] );
+            Log.e(TAG, "makeValues: values length is "+ values.size() );
+        }
+        int valueCounter = 0;
+        for(int i = 0; i < weightedValues.length; i++){
+            for(int j = 0; j < weightedValues.length; j++){
+                float tempFloat = values.get(valueCounter);
+                tempFloat *= weightedValues[j];
+                Log.e(TAG, "makeValues: tempFloat = "+tempFloat );
+                endValues.add(tempFloat);
+                valueCounter++;
+            }
         }
     }
 
