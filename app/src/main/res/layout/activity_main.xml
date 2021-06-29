@@ -8,34 +8,36 @@
     android:layout_height="match_parent"
     android:background="@drawable/cell_rectangle_black">
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
+            android:id="@+id/layout"
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal|vertical"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dip"
+            android:scrollbarStyle="insideInset"
+            >
+            <HorizontalScrollView
+                android:id="@+id/horizontalView"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal|vertical"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dip">
+            <LinearLayout
                 android:id="@+id/firstLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center">
-
-                <Button
-                    android:id="@+id/add_button0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Button"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
 
                 <TableLayout
                     android:id="@+id/table0"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
                     android:stretchColumns="*"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    >
 
                     <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
                         style="@style/MyTheme">
@@ -43,47 +45,79 @@
                         <TextView
                             android:id="@+id/emptyCell0"
                             style="@style/MyDefaultTextAppearance"
+                            android:ellipsize="end"
+                            android:maxEms="8"
+                            android:singleLine="true"
+                            android:layout_width="77dp"
                             android:background="@drawable/cell_rectangle_black"
                             />
 
                         <TextView
                             android:id="@+id/column10"
                             style="@style/MyDefaultTextAppearance"
+                            android:layout_width="77dp"
+                            android:ellipsize="end"
+                            android:maxEms="8"
+                            android:singleLine="true"
                             android:background="@drawable/cell_rectangle_light_purple"
                             android:text="1st Header" />
 
                         <TextView
                             android:id="@+id/column20"
                             style="@style/MyDefaultTextAppearance"
+                            android:ellipsize="end"
+                            android:maxEms="8"
+                            android:singleLine="true"
+                            android:layout_width="77dp"
                             android:background="@drawable/cell_rectangle_light_purple"
                             android:text="2nd Header" />
 
                         <TextView
                             android:id="@+id/column30"
                             style="@style/MyDefaultTextAppearance"
+                            android:ellipsize="end"
+                            android:maxEms="6"
+                            android:singleLine="true"
+                            android:layout_width="77dp"
                             android:background="@drawable/cell_rectangle_light_purple"
                             android:text="2nd Header" />
 
                         <TextView
                             android:id="@+id/column40"
                             style="@style/MyDefaultTextAppearance"
+                            android:ellipsize="end"
+                            android:maxEms="8"
+                            android:singleLine="true"
+                            android:layout_width="77dp"
                             android:background="@drawable/cell_rectangle_light_purple"
                             android:text="4th Header" />
 
                         <TextView
                             android:id="@+id/column50"
                             style="@style/MyDefaultTextAppearance"
+                            android:ellipsize="end"
+                            android:maxEms="8"
+                            android:singleLine="true"
+                            android:layout_width="77dp"
                             android:background="@drawable/cell_rectangle_light_purple"
                             android:text="4th Header" />
 
                         <TextView
                             android:id="@+id/column60"
                             style="@style/MyDefaultTextAppearance"
+                            android:ellipsize="end"
+                            android:maxEms="8"
+                            android:singleLine="true"
+                            android:layout_width="77dp"
                             android:background="@drawable/cell_rectangle_light_purple"
                             android:text="4th Header" />
                         <TextView
                             android:id="@+id/column70"
                             style="@style/MyDefaultTextAppearance"
+                            android:ellipsize="end"
+                            android:maxEms="8"
+                            android:singleLine="true"
+                            android:layout_width="77dp"
                             android:background="@drawable/cell_rectangle_light_purple"
                             android:text="4th Header" />
                     </TableRow>
@@ -91,9 +125,12 @@
                 </TableLayout>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </LinearLayout>
+            </HorizontalScrollView>
 
+        </ScrollView>
 
     </RelativeLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

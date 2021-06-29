@@ -8,9 +8,10 @@
     </style>
 
     <style name="MyDefaultTextAppearance" parent="@android:style/TextAppearance">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">25sp</item>
         <item name="android:textColor">#333</item>
         <item name="android:textStyle">bold</item>
+        <item name="fontFamily">robotoboldraw</item>
     </style>
 
     <style name="TextCandalFont" parent="@android:style/TextAppearance">
@@ -22,17 +23,22 @@
 
     <style name="cell_style_light_purple">
         <item name="android:background">@drawable/cell_rectangle_even_lighter_purple</item>
+        <item name="fontFamily">@font/arimo_bold</item>
         <item name="android:textAppearance">@style/MyDefaultTextAppearance</item>
+
     </style>
 
     <style name="cell_style_final_sum">
         <item name="android:background">@drawable/cell_rectangle_light_blue</item>
+        <item name="fontFamily">@font/arimo_bold</item>
         <item name="android:textAppearance">@style/MyDefaultTextAppearance</item>
+
     </style>
 
     <style name="cell_style_dark_purple">
         <item name="android:background">@drawable/cell_rectangle_light_purple</item>
         <item name="android:textAppearance">@style/MyDefaultTextAppearance</item>
+        <item name="fontFamily">@font/arimo_bold</item>
     </style>
 
     <style name="ThemeOverlay.PrimaryPalette.Red" parent="">

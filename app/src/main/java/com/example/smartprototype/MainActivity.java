@@ -1,38 +1,25 @@
 package com.example.smartprototype;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -101,13 +88,13 @@ public class MainActivity extends AppCompatActivity {
         columnCounter = 0;
         makeValues();
         makeRow();
-        addBtn = (Button) findViewById(R.id.add_button0);
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //addBtn = (Button) findViewById(R.id.add_button0);
+        //addBtn.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            //public void onClick(View v) {
 
-            }
-        });
+            //}
+        //});
     }
 
     private void update() {
@@ -116,19 +103,27 @@ public class MainActivity extends AppCompatActivity {
 
         if(rowCounter < rowCount){
             TextView tv;
+            Typeface typeface = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                typeface = ResourcesCompat.getFont(this,R.font.robotoboldraw);
+            }
+
+
             TableRow tr = new TableRow(this);
-            tr.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            tr.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.MATCH_PARENT));
             for(int i = 0; i < results.size()+2; i++){
                 if(columnCounter == 0){
                     tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_dark_purple));
                     tv.setEllipsize(TextUtils.TruncateAt.END);
-                    tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tv.setMaxEms(4);
+                    tv.setMaxLines(1);
+                    tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
                     tv.setText(value);
                     endValueCounter--;
                 }
                 else if(columnCounter == results.size()+1){
                     tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_final_sum));
-                    tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
                     tv.setText(String.valueOf(choiceSumTotal.get(rowCounter)));
                     endValueCounter--;
                 }
@@ -136,9 +131,11 @@ public class MainActivity extends AppCompatActivity {
                     // Must take i-1 to get chart in order
                     String tempText = Float.toString(endValues.get(endValueCounter));
                     tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_light_purple));
-                    tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
                     tv.setText(tempText);
                 }
+                tv.setTypeface(typeface);
+                tv.setTextSize(18);
                 tr.addView(tv);
                 endValueCounter++;
                 columnCounter++;
@@ -191,7 +188,10 @@ public class MainActivity extends AppCompatActivity {
         else{
             for (int i = 0; i < results.size(); i++){
                 TextView text = findViewById(textResultIds[i]);
+
                 text.setText(results.get(i));
+                text.setEllipsize(TextUtils.TruncateAt.END);
+                text.setMaxLines(1);
                 textViews.add(text);
             }
         }
