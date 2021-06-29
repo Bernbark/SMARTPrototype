@@ -45,7 +45,7 @@ public class QuestionForm3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getTexts();
-                goToMain();
+                goToForm4();
             }
         });
         initialize();

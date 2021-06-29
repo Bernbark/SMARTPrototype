@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -56,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
             R.id.column60,R.id.column70};
     ArrayList<TextView> textViews = new ArrayList<>();
     ArrayList<String> results, choices, weights;
-    ArrayList<Float> values, endValues;
+    ArrayList<Float> values;
+    ArrayList<Integer> endValues;
 
 
     public static final String TAG = "MainActivity";
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             for(int i = 0; i < rowCount+1; i++){
                 if(columnCounter == 0){
                     tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_dark_purple));
+                    tv.setEllipsize(TextUtils.TruncateAt.END);
                     tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                     tv.setText(value);
                     endValueCounter--;
@@ -240,8 +243,11 @@ public class MainActivity extends AppCompatActivity {
             for(int j = 0; j < weightedValues.length; j++){
                 float tempFloat = values.get(valueCounter);
                 tempFloat *= weightedValues[j];
+                String tempString = Float.toString(tempFloat);
+                double tempDoub = Double.parseDouble(tempString);
+                int tempInt = (int) tempDoub;
                 Log.e(TAG, "makeValues: tempFloat = "+tempFloat );
-                endValues.add(tempFloat);
+                endValues.add(tempInt);
                 valueCounter++;
             }
         }
