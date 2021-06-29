@@ -53,12 +53,13 @@ public class MainActivity extends AppCompatActivity {
     Drawable image;
 
     double[] weightedValues;
+
     int[] textResultIds = {R.id.column10,R.id.column20,R.id.column30,R.id.column40,R.id.column50,
             R.id.column60,R.id.column70};
     ArrayList<TextView> textViews = new ArrayList<>();
     ArrayList<String> results, choices, weights;
     ArrayList<Float> values;
-    ArrayList<Integer> endValues;
+    ArrayList<Integer> endValues, choiceSumTotal;
 
 
     public static final String TAG = "MainActivity";
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         endValues = new ArrayList<>();
+        choiceSumTotal = new ArrayList<>();
         weightedValues = new double[7];
         initializeResults();
         table = (TableLayout)findViewById(R.id.table0);
@@ -116,12 +118,18 @@ public class MainActivity extends AppCompatActivity {
             TextView tv;
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
-            for(int i = 0; i < rowCount+1; i++){
+            for(int i = 0; i < results.size()+2; i++){
                 if(columnCounter == 0){
                     tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_dark_purple));
                     tv.setEllipsize(TextUtils.TruncateAt.END);
                     tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                     tv.setText(value);
+                    endValueCounter--;
+                }
+                else if(columnCounter == results.size()+1){
+                    tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_final_sum));
+                    tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tv.setText(String.valueOf(choiceSumTotal.get(rowCounter)));
                     endValueCounter--;
                 }
                 else{
@@ -239,17 +247,20 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "makeValues: values length is "+ values.size() );
         }
         int valueCounter = 0;
+        int tempInt;
+        int sum = 0;
         for(int i = 0; i < weightedValues.length; i++){
             for(int j = 0; j < weightedValues.length; j++){
                 float tempFloat = values.get(valueCounter);
                 tempFloat *= weightedValues[j];
-                String tempString = Float.toString(tempFloat);
-                double tempDoub = Double.parseDouble(tempString);
-                int tempInt = (int) tempDoub;
+                tempInt = (int) tempFloat;
                 Log.e(TAG, "makeValues: tempFloat = "+tempFloat );
                 endValues.add(tempInt);
+                sum += tempInt;
                 valueCounter++;
             }
+            choiceSumTotal.add(sum);
+            sum = 0;
         }
     }
 
