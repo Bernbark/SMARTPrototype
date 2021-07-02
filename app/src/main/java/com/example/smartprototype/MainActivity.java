@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
             TableRow tr = new TableRow(this);
             tr.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.MATCH_PARENT));
             for(int i = 0; i < results.size()+2; i++){
+                //TODO add 7 colors for alternating row headers
                 if(columnCounter == 0){
                     tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_dark_purple));
                     tv.setEllipsize(TextUtils.TruncateAt.END);
