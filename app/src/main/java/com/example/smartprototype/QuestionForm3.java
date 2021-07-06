@@ -70,7 +70,7 @@ public class QuestionForm3 extends AppCompatActivity {
         params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,140);
         for(int i = 0; i < choiceAmount; i++){
             et = new EditText(this);
-            et.setHint("Descriptors go here");
+            et.setHint("Difficult choices go here");
             et.setPadding(5,40,5,5);
             editTexts.add(et);
             layout.addView(et,params);
