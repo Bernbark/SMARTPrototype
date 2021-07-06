@@ -61,8 +61,8 @@ public class QuestionForm4 extends AppCompatActivity {
         questions = new ArrayList<>();
         values = new ArrayList<>();
         makeQuestions();
-        for(int i = 0; i < QUESTION_AMOUNT; i++){
-            for(int j = 0; j < QUESTION_AMOUNT; j++){
+        for(int i = 0; i < results.size(); i++){
+            for(int j = 0; j < choices.size(); j++){
                 makeSliders();
             }
         }
@@ -124,8 +124,8 @@ public class QuestionForm4 extends AppCompatActivity {
                 weights = extras.getStringArrayList("weights");
             }
         }
-        for(int i = 0; i < results.size(); i++){
-            for(int j = 0; j < choices.size(); j++){
+        for(int i = 0; i < choices.size(); i++){
+            for(int j = 0; j < results.size(); j++){
                 Log.e("QuestionForm4", "makeQuestions: size of arrays "+choices.size()+"   " +results.size() );
                 questions.add("How do you rate " + choices.get(i) + "'s \"" + results.get(j) +"\" factor. 10 being better and 1 being worse");
             }
@@ -139,9 +139,9 @@ public class QuestionForm4 extends AppCompatActivity {
         for(int i = 2; i > 0; i--){
 
             if(i == 2){
-                tv = new TextView(this);
-                tv.setText(questions.get(questionCounter));
                 questionCounter++;
+                tv = new TextView(this);
+                tv.setText(questions.get(questionCounter-1));
                 params = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
                 layout.addView(tv,params);
             }

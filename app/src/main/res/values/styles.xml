@@ -21,10 +21,22 @@
         <item name="fontFamily">candal</item>
     </style>
 
+    <style name="cell_style_green">
+        <item name="android:background">@drawable/cell_rectangle_green</item>
+        <item name="fontFamily">@font/arimo_bold</item>
+        <item name="android:textAppearance">@style/MyDefaultTextAppearance</item>
+
+    </style>
+
     <style name="cell_style_light_purple">
         <item name="android:background">@drawable/cell_rectangle_even_lighter_purple</item>
         <item name="fontFamily">@font/arimo_bold</item>
         <item name="android:textAppearance">@style/MyDefaultTextAppearance</item>
+
+    </style>
+
+    <style name="cell_style_black">
+        <item name="android:background">@drawable/cell_rectangle_black</item>
 
     </style>
 

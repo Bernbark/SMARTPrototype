@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     double[] weightedValues;
 
-    int[] textResultIds = {R.id.column10,R.id.column20,R.id.column30,R.id.column40,R.id.column50,
-            R.id.column60,R.id.column70};
+    //int[] textResultIds = {R.id.column10,R.id.column20,R.id.column30,R.id.column40,R.id.column50,
+            //R.id.column60,R.id.column70};
     ArrayList<TextView> textViews = new ArrayList<>();
     ArrayList<String> results, choices, weights;
     ArrayList<Float> values;
@@ -80,9 +80,10 @@ public class MainActivity extends AppCompatActivity {
         }
         endValues = new ArrayList<>();
         choiceSumTotal = new ArrayList<>();
-        weightedValues = new double[7];
-        initializeResults();
+        weightedValues = new double[results.size()];
         table = (TableLayout)findViewById(R.id.table0);
+        initializeResults();
+
         endValueCounter = 0;
         columnCounter = 0;
         makeValues();
@@ -95,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
             //}
         //});
     }
+
+    //TODO make the update method dynamic so that it stops adding unnecessary columns, and adds
+    // the correct amount of rows
 
     private void update() {
 
@@ -186,14 +190,32 @@ public class MainActivity extends AppCompatActivity {
             showToast("This array has nothing in it!");
         }
         else{
-            for (int i = 0; i < results.size(); i++){
-                TextView text = findViewById(textResultIds[i]);
+            TableRow tr = new TableRow(this);
+            tr.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.MATCH_PARENT));
+            TextView tv;
+            for (int i = 0; i < results.size()+2; i++){
+                if(i == 0){
+                    tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_black));
+                }
+                else if(i == results.size()+1){
+                    tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_green));
+                    tv.setText("Totals");
+                }
+                else{
+                    tv = new TextView(new ContextThemeWrapper(this,R.style.cell_style_dark_purple));
+                    tv.setText(results.get(i-1));
+                }
+                tv.setEllipsize(TextUtils.TruncateAt.END);
+                tv.setMaxEms(4);
+                tv.setMaxLines(1);
+                tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
 
-                text.setText(results.get(i));
-                text.setEllipsize(TextUtils.TruncateAt.END);
-                text.setMaxLines(1);
-                textViews.add(text);
+
+
+                textViews.add(tv);
+                tr.addView(tv);
             }
+            table.addView(tr);
         }
     }
 
