@@ -13,17 +13,22 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
 public class QuestionForm3 extends AppCompatActivity {
 
-    int[] editTextIds = {R.id.choice0,R.id.choice1,R.id.choice2,
-            R.id.choice3,R.id.choice4,R.id.choice5,R.id.choice6};
+    //int[] editTextIds = {R.id.choice0,R.id.choice1,R.id.choice2,
+            //R.id.choice3,R.id.choice4,R.id.choice5,R.id.choice6};
     ArrayList<EditText> editTexts = new ArrayList<>();
+    EditText et;
+    LinearLayout layout;
+    LinearLayout.LayoutParams params;
     Button goToMain;
     ArrayList<String> results, weights;
     ArrayList<String> choices;
+    int choiceAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +39,11 @@ public class QuestionForm3 extends AppCompatActivity {
         if(extras != null){
             results = (ArrayList<String>) extras.getStringArrayList("results");
             weights = (ArrayList<String>) extras.getStringArrayList("weights");
+            choiceAmount = Integer.parseInt(i.getStringExtra("choiceAmount"));
         }
         choices = new ArrayList<>();
+        layout = findViewById(R.id.q_3_layout);
+        makeEditTexts();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
@@ -48,7 +56,6 @@ public class QuestionForm3 extends AppCompatActivity {
                 goToForm4();
             }
         });
-        initialize();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,22 +66,15 @@ public class QuestionForm3 extends AppCompatActivity {
         });
     }
 
-    public void initialize(){
-        for(int i = 0; i < editTextIds.length; i++){
-            EditText editText = findViewById(editTextIds[i]);
-            editTexts.add(editText);
+    public void makeEditTexts(){
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,140);
+        for(int i = 0; i < choiceAmount; i++){
+            et = new EditText(this);
+            et.setHint("Descriptors go here");
+            et.setPadding(5,40,5,5);
+            editTexts.add(et);
+            layout.addView(et,params);
         }
-    }
-
-    private void goToMain(){
-        Intent goToMain = new Intent(this,MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList("results",results);
-        bundle.putStringArrayList("choices",choices);
-        bundle.putStringArrayList("weights",weights);
-        goToMain.putExtras(bundle);
-        startActivity(goToMain);
-        finish();
     }
 
     /**
@@ -102,6 +102,10 @@ public class QuestionForm3 extends AppCompatActivity {
         Intent back = new Intent(this,QuestionForm2.class);
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("results",results);
+        bundle.putStringArrayList("weights",weights);
+        getTexts();
+        back.putExtra("choiceAmount",choices.size()+"");
+        back.putExtra("descriptorAmount",results.size()+"");
         //bundle.putStringArrayList("choices",choices);
         //bundle.putStringArrayList("weights",weights);
         back.putExtras(bundle);

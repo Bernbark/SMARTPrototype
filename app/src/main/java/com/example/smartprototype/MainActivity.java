@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         columnCounter = 0;
 
-        if(rowCounter < results.size()){
+        if(rowCounter < choices.size()){
             TextView tv;
             Typeface typeface = null;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {

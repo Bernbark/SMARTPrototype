@@ -166,6 +166,7 @@ public class QuestionForm4 extends AppCompatActivity {
         bundle.putStringArrayList("results",results);
         bundle.putStringArrayList("choices",choices);
         bundle.putStringArrayList("weights",weights);
+        back.putExtra("choiceAmount",choices.size()+"");
         back.putExtras(bundle);
         startActivity(back);
         finish();

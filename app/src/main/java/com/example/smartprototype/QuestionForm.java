@@ -95,6 +95,7 @@ public class QuestionForm extends AppCompatActivity {
         Bundle bundle = new Bundle();
         //secondQuestion.putExtra("texts",texts);
         bundle.putStringArrayList("results",results);
+        secondQuestion.putExtra("choiceAmount",choicesAmount+"");
         secondQuestion.putExtras(bundle);
         startActivity(secondQuestion);
         finish();

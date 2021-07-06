@@ -38,7 +38,7 @@ public class QuestionForm2 extends AppCompatActivity {
             //R.id.result16,R.id.result17};
     ArrayList<TextView> textViews = new ArrayList<>();
     Button goToForm3;
-    int radioCounter;
+    int radioCounter, choiceAmount;
     LinearLayout layout;
     Slider slider;
 
@@ -55,6 +55,7 @@ public class QuestionForm2 extends AppCompatActivity {
         Bundle extras = i.getExtras();
         if(extras != null){
             results = (ArrayList<String>) i.getStringArrayListExtra("results");
+            choiceAmount = Integer.parseInt(i.getStringExtra("choiceAmount"));
         }
         weights = new ArrayList<>();
         ids = new ArrayList<>();
@@ -105,24 +106,6 @@ public class QuestionForm2 extends AppCompatActivity {
             }
         }
         Log.e(TAG, "makeQuestions: questions size = "+questions.size() );
-        /**
-        for (int i = 0; i < 6; i++){
-            questions.add("How do you rate " + results.get(0) + " in importance compared to "+ results.get(i+1));
-        }
-        for (int i = 1; i < 6; i++){
-            questions.add("How do you rate " + results.get(1) + " in importance compared to "+ results.get(i+1));
-        }
-        for (int i = 2; i < 6; i++){
-            questions.add("How do you rate " + results.get(2) + " in importance compared to "+ results.get(i+1));
-        }
-        for (int i = 3; i < 6; i++){
-            questions.add("How do you rate " + results.get(3) + " in importance compared to "+ results.get(i+1));
-        }
-        for (int i = 4; i < 6; i++){
-            questions.add("How do you rate " + results.get(4) + " in importance compared to "+ results.get(i+1));
-        }
-        questions.add("How do you rate " + results.get(5) + " in importance compared to "+ results.get(6));
-         */
     }
 
     public void initializeResults(){
@@ -131,10 +114,7 @@ public class QuestionForm2 extends AppCompatActivity {
         }
         else{
             for (int i = 0; i < questions.size(); i++){
-                //TextView text = findViewById(textResultIds[i]);
-                //Log.e(TAG, "initializeResults: checking results before setting text in QF2 = " +results[i] );
-                //text.setText(results[i]);
-                //textViews.add(text);
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     radioCounter++;
                     makeSlider();
@@ -158,18 +138,12 @@ public class QuestionForm2 extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("results",results);
         bundle.putStringArrayList("weights",weights);
+        form3.putExtra("choiceAmount",choiceAmount+"");
         form3.putExtras(bundle);
         startActivity(form3);
         finish();
     }
 
-    private void goToMain(){
-        Intent goToMain = new Intent(this,MainActivity.class);
-        Bundle bundle = new Bundle();
-        goToMain.putExtra("results",results);
-        goToMain.putExtras(bundle);
-        startActivity(goToMain);
-    }
 
     //TODO change radios to sliders, requires changing the onClick to take in a float array
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -202,6 +176,8 @@ public class QuestionForm2 extends AppCompatActivity {
 
     public void goToForm1(){
         Intent start = new Intent(this,QuestionForm.class);
+        start.putExtra("choiceAmount",choiceAmount+"");
+        start.putExtra("descriptorAmount",results.size()+"");
         startActivity(start);
         finish();
     }
