@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         columnCounter = 0;
 
-        if(rowCounter < rowCount){
+        if(rowCounter < results.size()){
             TextView tv;
             Typeface typeface = null;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void makeRow(){
-        for(int i = 0; i < results.size(); i++){
+        for(int i = 0; i < choices.size(); i++){
             value = choices.get(i);
             update();
         }
@@ -271,8 +271,8 @@ public class MainActivity extends AppCompatActivity {
         int valueCounter = 0;
         int tempInt;
         int sum = 0;
-        for(int i = 0; i < weightedValues.length; i++){
-            for(int j = 0; j < weightedValues.length; j++){
+        for(int i = 0; i < choices.size(); i++){
+            for(int j = 0; j < results.size(); j++){
                 float tempFloat = values.get(valueCounter);
                 tempFloat *= weightedValues[j];
                 tempInt = (int) tempFloat;
