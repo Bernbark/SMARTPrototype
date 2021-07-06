@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     TableLayout table;
     Button addBtn;
 
-
     int rowCount = 7;
     int rowCounter = 0;
     int columnCount, weightCounter, endValueCounter;

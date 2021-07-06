@@ -11,24 +11,28 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
 public class QuestionForm extends AppCompatActivity {
 
-
+    public static final String TAG = "QuestionForm";
     Button finishForm;
     ArrayList<String> results;
     /**
      * A good lesson in handling large amounts of initialization, combine these fields
      * with the initialize method down below
      */
-    int[] editTextIds = {R.id.descriptor0,R.id.descriptor1,R.id.descriptor2,
-    R.id.descriptor3,R.id.descriptor4,R.id.descriptor5,R.id.descriptor6};
+    EditText et;
+    LinearLayout layout;
+    LinearLayout.LayoutParams params;
     ArrayList<EditText> editTexts = new ArrayList<>();
+    int choicesAmount, descriptorsAmount;
 
 
     @Override
@@ -40,8 +44,16 @@ public class QuestionForm extends AppCompatActivity {
         }
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_question_form);
+        Intent i = getIntent();
+        Bundle extras = i.getExtras();
+        if(extras != null){
+            choicesAmount =  Integer.parseInt(i.getStringExtra("choiceAmount"));
+            descriptorsAmount = Integer.parseInt(i.getStringExtra("descriptorAmount"));
+            Log.e(TAG, "onCreate: choices and descriptors amounts = "+choicesAmount+" "+descriptorsAmount );
+        }
+        layout = findViewById(R.id.q_1_layout);
         results = new ArrayList<>();
-        initialize();
+        makeEditTexts();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
@@ -67,17 +79,15 @@ public class QuestionForm extends AppCompatActivity {
         });
     }
 
-    public void goToChart(){
-        if (results.size() == 0){
-            showToast("Nothing to send to the charts!");
-            return;
+    public void makeEditTexts(){
+        params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,140);
+        for(int i = 0; i < descriptorsAmount; i++){
+            et = new EditText(this);
+            et.setHint("Descriptors go here");
+            et.setPadding(5,40,5,5);
+            editTexts.add(et);
+            layout.addView(et,params);
         }
-        Intent secondPage = new Intent(this, MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList("texts",results);
-
-        secondPage.putExtras(bundle);
-        startActivity(secondPage);
     }
 
     public void goToSecondQuestionForm(){
@@ -88,13 +98,6 @@ public class QuestionForm extends AppCompatActivity {
         secondQuestion.putExtras(bundle);
         startActivity(secondQuestion);
         finish();
-    }
-
-    public void initialize(){
-        for(int i = 0; i < editTextIds.length; i++){
-            EditText editText = findViewById(editTextIds[i]);
-            editTexts.add(editText);
-        }
     }
 
     public void getTexts(){
@@ -113,7 +116,7 @@ public class QuestionForm extends AppCompatActivity {
     }
 
     public void goBackProperly(){
-        Intent back = new Intent(this,HomeScreen.class);
+        Intent back = new Intent(this,ChoiceForm.class);
         startActivity(back);
         finish();
     }

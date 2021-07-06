@@ -74,12 +74,7 @@ public class QuestionForm2 extends AppCompatActivity {
                         weights.add(tempString);
                     }
                 }
-                if(weights.size() == 21){
-                    goToForm3();
-                }
-                else{
-                    showToast("You must answer every question to proceed.");
-                }
+                goToForm3();
 
             } });
         questions = new ArrayList<>();
@@ -104,6 +99,13 @@ public class QuestionForm2 extends AppCompatActivity {
     //TODO hook up questions by manipulating results arraylist and concactenating 22 strings
     // containing the questions to be asked
     public void makeQuestions(){
+        for(int i = 0; i < 6; i++){
+            for(int j = i + 1; j < results.size(); j++){
+                questions.add("How do you rate " + results.get(i) + " in importance compared to "+ results.get(j));
+            }
+        }
+        Log.e(TAG, "makeQuestions: questions size = "+questions.size() );
+        /**
         for (int i = 0; i < 6; i++){
             questions.add("How do you rate " + results.get(0) + " in importance compared to "+ results.get(i+1));
         }
@@ -120,6 +122,7 @@ public class QuestionForm2 extends AppCompatActivity {
             questions.add("How do you rate " + results.get(4) + " in importance compared to "+ results.get(i+1));
         }
         questions.add("How do you rate " + results.get(5) + " in importance compared to "+ results.get(6));
+         */
     }
 
     public void initializeResults(){
@@ -127,14 +130,14 @@ public class QuestionForm2 extends AppCompatActivity {
             showToast("This array has nothing in it!");
         }
         else{
-            for (int i = 0; i < QUESTION_AMOUNT; i++){
+            for (int i = 0; i < questions.size(); i++){
                 //TextView text = findViewById(textResultIds[i]);
                 //Log.e(TAG, "initializeResults: checking results before setting text in QF2 = " +results[i] );
                 //text.setText(results[i]);
                 //textViews.add(text);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     radioCounter++;
-                    makeRadio();
+                    makeSlider();
                 }
 
             }
@@ -170,7 +173,7 @@ public class QuestionForm2 extends AppCompatActivity {
 
     //TODO change radios to sliders, requires changing the onClick to take in a float array
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void makeRadio(){
+    private void makeSlider(){
         grp = new RadioGroup(this);
         grp.setId(radioCounter);
         radios = new RadioButton[5];

@@ -9,11 +9,11 @@
 
     </string-array>
     <string name="title_activity_question_form">Questionnaire</string>
-    <string name="large_text">
+    <string name="question_form_1_info">
         "Having a hard time making a decision?\n\n"
 
-        "This app's focus is to help you by applying weights to your decisions, and showing "
-        "you your best possible option. \n"
+        "This app's focus is to help you by applying weights to your decisions, and showing"
+        "you your best possible option. \n\n"
         "Fill out this form and continue to the next step."
     </string>
     <string name="action_settings">Settings</string>

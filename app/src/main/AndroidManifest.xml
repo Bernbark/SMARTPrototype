@@ -11,26 +11,34 @@
         android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight">
+        <activity android:name=".ChoiceForm"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoActionBar"/>
+        <activity android:name=".OnBoarding" />
         <activity
             android:name=".QuestionForm4"
             android:label="@string/title_activity_question_form4"
             android:screenOrientation="landscape"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".QuestionForm3"
             android:label="@string/title_activity_question_form3"
             android:screenOrientation="landscape"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".QuestionForm2"
             android:label="@string/title_activity_question_form2"
             android:screenOrientation="landscape"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".QuestionForm"
             android:label="@string/title_activity_question_form"
             android:screenOrientation="landscape"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".HomeScreen"
             android:screenOrientation="landscape">
